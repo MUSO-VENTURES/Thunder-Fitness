@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The 580 Board · Concept Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#17181A;
+    --panel:#212327;
+    --panel-2:#26282D;
+    --line:#3A3D42;
+    --chalk:#ECE9E2;
+    --chalk-dim:#9A9C9F;
+    --ember:#FF4B2B;
+    --ember-dim:#5C2419;
+    --tape:#F5C518;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255,75,43,0.06), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(245,197,24,0.05), transparent 40%),
+      var(--bg);
+    color:var(--chalk);
+    font-family:'Inter',sans-serif;
+    padding:32px 16px 60px;
+    min-height:100vh;
+  }
+  .wrap{max-width:1040px;margin:0 auto;}
+  .top{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    gap:16px;flex-wrap:wrap;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:18px;
+  }
+  .brand-mark{display:flex;align-items:center;gap:12px;}
+  .brand-mark .box{
+    width:38px;height:38px;border:2px solid var(--ember);border-radius:4px;
+    display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;
+    font-weight:600;font-size:13px;color:var(--ember);
+  }
+  h1{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:0.5px;font-size:26px;margin:0;font-weight:700;}
+  h1 span{color:var(--ember);}
+  .sub{color:var(--chalk-dim);font-size:13px;margin-top:2px;}
+  .tabs{display:flex;gap:8px;}
+  .tab-btn{
+    background:var(--panel);border:1px solid var(--line);color:var(--chalk-dim);
+    font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:0.5px;
+    font-size:13px;padding:10px 18px;border-radius:6px;cursor:pointer;font-weight:600;
+    transition:all .15s ease;
+  }
+  .tab-btn.active{background:var(--ember);border-color:var(--ember);color:#1a0d09;}
+  .view{display:none;}
+  .view.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---- shared card ---- */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px;}
+  .card + .card{margin-top:16px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--tape);margin-bottom:6px;}
+  .card h2{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:18px;margin:0 0 14px;font-weight:600;}
+
+  /* ---- board view layout ---- */
+  .board-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;}
+  @media(max-width:760px){.board-grid{grid-template-columns:1fr;}}
+
+  .challenge-banner{
+    display:flex;align-items:center;gap:18px;background:linear-gradient(135deg, var(--ember-dim), var(--panel-2));
+    border:1px solid var(--ember);border-radius:10px;padding:18px;margin-bottom:16px;
+  }
+  .clock{
+    width:64px;height:64px;border-radius:50%;border:3px solid var(--tape);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;color:var(--tape);
+    background:var(--bg);
+  }
+  .clock::after{
+    content:'';position:absolute;top:50%;left:50%;width:2px;height:22px;background:var(--tape);
+    transform-origin:bottom center;transform:translate(-50%,-100%) rotate(35deg);border-radius:2px;
+  }
+  .challenge-banner .txt .label{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:15px;font-weight:600;margin-bottom:2px;}
+  .challenge-banner .txt .desc{color:var(--chalk-dim);font-size:13px;}
+
+  table{width:100%;border-collapse:collapse;}
+  thead th{
+    text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;
+    color:var(--chalk-dim);text-transform:uppercase;padding:0 10px 10px;border-bottom:1px solid var(--line);
+  }
+  tbody td{padding:12px 10px;border-bottom:1px dashed var(--line);font-size:14px;}
+  tbody tr:last-child td{border-bottom:none;}
+  .rank{font-family:'IBM Plex Mono',monospace;font-weight:600;width:34px;}
+  .rank.gold{color:var(--tape);}
+  .name{font-weight:600;}
+  .name .streak{display:block;font-weight:400;color:var(--chalk-dim);font-size:11px;margin-top:2px;}
+  .score{font-family:'IBM Plex Mono',monospace;text-align:right;font-weight:600;color:var(--ember);}
+  .badges span{
+    display:inline-block;width:22px;height:22px;border-radius:5px;background:var(--panel-2);
+    border:1px solid var(--line);margin-right:4px;text-align:center;line-height:22px;font-size:11px;
+  }
+
+  .cohort-pill{
+    display:inline-flex;align-items:center;gap:6px;background:var(--panel-2);border:1px solid var(--line);
+    border-radius:20px;padding:5px 12px;font-size:12px;color:var(--chalk-dim);margin-bottom:14px;
+  }
+  .cohort-pill b{color:var(--chalk);}
+
+  .badge-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .badge-item{
+    flex:1 1 130px;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;
+    padding:12px;text-align:center;
+  }
+  .badge-item .ic{font-size:20px;margin-bottom:6px;}
+  .badge-item .nm{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:12px;font-weight:600;}
+  .badge-item .ct{font-size:11px;color:var(--chalk-dim);margin-top:2px;}
+
+  /* ---- coach console ---- */
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:12px;color:var(--chalk-dim);margin-bottom:6px;font-weight:500;}
+  .field input, .field select{
+    width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:6px;
+    color:var(--chalk);padding:10px 12px;font-size:14px;font-family:'Inter',sans-serif;
+  }
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .pt-input{display:flex;align-items:center;gap:10px;}
+  .pt-input input[type=range]{flex:1;accent-color:var(--ember);}
+  .pt-val{font-family:'IBM Plex Mono',monospace;color:var(--ember);font-weight:600;min-width:38px;text-align:right;}
+  .btn{
+    background:var(--ember);color:#1a0d09;border:none;border-radius:6px;padding:12px 18px;
+    font-family:'Oswald',sans-serif;text-transform:uppercase;font-weight:600;letter-spacing:0.5px;
+    font-size:13px;cursor:pointer;
+  }
+  .active-list{display:flex;flex-direction:column;gap:10px;}
+  .active-item{
+    display:flex;justify-content:space-between;align-items:center;background:var(--panel-2);
+    border:1px solid var(--line);border-radius:8px;padding:12px 14px;
+  }
+  .active-item .n{font-weight:600;font-size:14px;}
+  .active-item .m{font-size:12px;color:var(--chalk-dim);}
+  .toggle{
+    width:38px;height:20px;border-radius:20px;background:var(--ember);position:relative;cursor:pointer;flex-shrink:0;
+  }
+  .toggle::after{content:'';position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:#1a0d09;}
+  .toggle.off{background:var(--line);}
+  .toggle.off::after{left:2px;right:auto;background:var(--chalk-dim);}
+  .note{font-size:11px;color:var(--chalk-dim);margin-top:16px;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <div class="brand-mark">
+        <div class="box">580</div>
+        <div>
+          <h1>THE <span>BOARD</span></h1>
+          <div class="sub">CrossFit 580 · digitizes the whiteboard, coach-run engagement layer</div>
+        </div>
+      </div>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showView('client')">The Board</button>
+      <button class="tab-btn" onclick="showView('coach')">Coach Console</button>
+    </div>
+  </div>
+
+  <!-- CLIENT VIEW -->
+  <div class="view active" id="client">
+
+    <div class="challenge-banner">
+      <div class="clock">2d 14h</div>
+      <div class="txt">
+        <div class="label">HYROX Prep Block: Reveal in progress</div>
+        <div class="desc">Coach Dana is finalizing next week's scoring categories. Current standings lock Sunday 11:59pm.</div>
+      </div>
+    </div>
+
+    <div class="board-grid">
+      <div class="card">
+        <div class="eyebrow">Live Standings · HYROX Prep Block</div>
+        <h2>This Week's Board</h2>
+        <table>
+          <thead><tr><th>#</th><th>Athlete</th><th>Badges</th><th style="text-align:right">Pts</th></tr></thead>
+          <tbody>
+            <tr><td class="rank gold">1</td><td class="name">M. Alvarez<span class="streak">18-day streak</span></td><td class="badges"><span>🔥</span><span>🏆</span><span>💪</span></td><td class="score">1,240</td></tr>
+            <tr><td class="rank">2</td><td class="name">J. Ferreira<span class="streak">6-day streak</span></td><td class="badges"><span>🔥</span><span>🥇</span></td><td class="score">1,190</td></tr>
+            <tr><td class="rank">3</td><td class="name">S. Okafor<span class="streak">12-day streak</span></td><td class="badges"><span>🔥</span><span>💪</span></td><td class="score">1,110</td></tr>
+            <tr><td class="rank">4</td><td class="name">T. Nguyen<span class="streak">3-day streak</span></td><td class="badges"><span>🔥</span></td><td class="score">980</td></tr>
+            <tr><td class="rank">5</td><td class="name">R. Diaz<span class="streak">9-day streak</span></td><td class="badges"><span>🔥</span><span>🥈</span></td><td class="score">945</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="eyebrow">Your Squad</div>
+          <h2>Team Iron Coyotes</h2>
+          <div class="cohort-pill">🐾 6am Crew &nbsp;·&nbsp; <b>Rank 2 of 5 teams</b></div>
+          <p style="font-size:13px;color:var(--chalk-dim);margin:0;">Coach-assigned squads for the Nutrition Reset cohort compete as a team, not just solo. Team score is the average of its members' weekly points.</p>
+        </div>
+        <div class="card">
+          <div class="eyebrow">Milestones</div>
+          <h2>Badge Case</h2>
+          <div class="badge-row">
+            <div class="badge-item"><div class="ic">🥇</div><div class="nm">First PR</div><div class="ct">Earned</div></div>
+            <div class="badge-item"><div class="ic">🔥</div><div class="nm">30-Day Streak</div><div class="ct">12 to go</div></div>
+            <div class="badge-item"><div class="ic">🏋️</div><div class="nm">RX'd</div><div class="ct">Locked</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COACH VIEW -->
+  <div class="view" id="coach">
+
+    <div class="card">
+      <div class="eyebrow">Coach Console · Build a Challenge</div>
+      <h2>New Challenge</h2>
+      <div class="row2">
+        <div class="field">
+          <label>Challenge name</label>
+          <input type="text" value="HYROX Prep Block">
+        </div>
+        <div class="field">
+          <label>Applies to</label>
+          <select><option>All members</option><option selected>Nutrition Reset cohort</option><option>Custom squad</option></select>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Duration</label>
+          <input type="text" value="4 weeks">
+        </div>
+        <div class="field">
+          <label>Scoring source</label>
+          <select><option selected>Auto-pull from Wodify scores</option><option>Manual coach entry</option></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Points per WOD completed</label>
+        <div class="pt-input">
+          <input type="range" min="10" max="200" value="120">
+          <div class="pt-val">120</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Badge awarded on completion</label>
+        <input type="text" value="Iron 580, HYROX Ready">
+      </div>
+      <button class="btn">Publish Challenge</button>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">Currently Running</div>
+      <h2>Active Challenges &amp; Boards</h2>
+      <div class="active-list">
+        <div class="active-item">
+          <div><div class="n">HYROX Prep Block</div><div class="m">Nutrition Reset cohort · 4 weeks · Wodify auto-sync</div></div>
+          <div class="toggle"></div>
+        </div>
+        <div class="active-item">
+          <div><div class="n">30-Day Consistency Streak</div><div class="m">All members · ongoing · manual streak reset control</div></div>
+          <div class="toggle"></div>
+        </div>
+        <div class="active-item">
+          <div><div class="n">Kids CrossFit Star Chart</div><div class="m">Kids program · weekly · attendance-based</div></div>
+          <div class="toggle off"></div>
+        </div>
+      </div>
+      <div class="note">Coach controls point values, badge names, cohorts, and reveal timing per challenge. Nothing is hardcoded. A challenge can pull scores automatically from Wodify or be scored manually for things Wodify doesn't track (form check-ins, nutrition compliance, class attendance).</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
