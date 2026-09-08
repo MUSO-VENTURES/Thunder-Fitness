@@ -219,14 +219,17 @@
   .join-body{ flex:1; min-height:0; display:flex; align-items:center; gap: clamp(28px,4.2vw,68px); }
   .join-info{ flex:1.3; min-width:0; }
   .join-hook{
-    display:inline-block; font-family: var(--font-impact); font-weight:400; font-style:normal;
+    display:block; font-family: var(--font-impact); font-weight:400; font-style:normal;
     text-transform:uppercase; letter-spacing:1px;
-    font-size: clamp(19px,2.6vw,36px); color: var(--accent);
+    font-size: clamp(21px,2.9vw,40px); color: var(--accent);
     text-shadow: 0 0 18px rgba(227,19,27,0.45);
-    padding: clamp(8px,1.2vh,14px) clamp(18px,2.2vw,30px); margin-bottom: clamp(14px,2.2vh,24px);
-    border-radius:10px; border:2px solid var(--accent); background: rgba(227,19,27,0.12);
+    margin-bottom: clamp(14px,2.2vh,24px);
   }
-  .join-copy{ font-size: clamp(13px,1.4vw,20px); color: var(--text-dim); line-height:1.55; margin-bottom: clamp(18px,2.6vh,30px); max-width: 48ch; }
+  .join-copy{
+    font-size: clamp(13px,1.4vw,20px); color: var(--text-dim); line-height:1.55;
+    margin-bottom: clamp(18px,2.6vh,30px); max-width: 44ch;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
   .join-features{ display:flex; flex-direction:column; gap: clamp(12px,1.8vh,22px); }
   .join-feat{ display:flex; align-items:center; gap: clamp(14px,1.8vw,22px); }
   .jf-icon{
@@ -331,8 +334,8 @@
     </div>
     <div class="join-body">
       <div class="join-info">
-        <div class="join-hook">Are You Up For The Challenge?</div>
-        <div class="join-copy">Scan in when you walk through the door, scan out when you're done. Every session builds your points, every PR gets noticed, and every month the board resets so anyone can make a run at the top.</div>
+        <div class="join-hook">Are You Up For A Challenge?</div>
+        <div class="join-copy">Every check-in builds your points. Climb the board, win exclusive gear.</div>
         <div class="join-features">
           <div class="join-feat">
             <span class="jf-icon">&#128241;</span>
