@@ -173,7 +173,8 @@
   }
   .badge.earned{ border-color: rgba(242,176,6,0.4); background: linear-gradient(160deg, rgba(242,176,6,0.10), var(--bg-elev-2)); }
   .badge:hover{ transform: translateY(-2px); }
-  .badge .ico{ font-size:20px; }
+  .badge .ico{ width:30px; height:30px; color: var(--accent-2); }
+  .badge .ico svg{ width:100%; height:100%; }
   .badge .lbl{ font-size:9.5px; color: var(--text-dim); font-weight:600; line-height:1.2; }
   .badge.locked .ico, .badge.locked .lbl{ opacity:0.32; }
   .badge.locked::after{
@@ -356,14 +357,14 @@
         <div class="card">
           <div class="card-head"><h2>Badges</h2><span class="meta">6 of 16 earned</span></div>
           <div class="badge-grid">
-            <div class="badge earned"><div class="ico">&#128293;</div><div class="lbl">Iron Will<br>30-day streak</div></div>
-            <div class="badge earned"><div class="ico">&#127942;</div><div class="lbl">PR Crusher</div></div>
-            <div class="badge earned"><div class="ico">&#9889;</div><div class="lbl">Storm Ready<br>hit Storm Tier</div></div>
-            <div class="badge earned"><div class="ico">&#129381;</div><div class="lbl">Nutrition Coach Connect</div></div>
-            <div class="badge earned"><div class="ico">&#127749;</div><div class="lbl">5:30am Regular</div></div>
-            <div class="badge earned"><div class="ico">&#129309;</div><div class="lbl">Bring-a-Friend</div></div>
-            <div class="badge locked"><div class="ico">&#128081;</div><div class="lbl">Gym MVP</div></div>
-            <div class="badge locked"><div class="ico">&#128175;</div><div class="lbl">100 Check-ins</div></div>
+            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.5-3-5.5-.5 2-1.5 3-2 3 1-3-1-5.5-3-7-1 2.5.5 4-1 6-1 1.5-2 2.5-2 3.5a7 7 0 0 0 4 7z"/></svg></div><div class="lbl">Iron Will<br>30-day streak</div></div>
+            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 5H5a2 2 0 0 0 0 4h2"/><path d="M17 5h2a2 2 0 0 1 0 4h-2"/></svg></div><div class="lbl">PR Crusher</div></div>
+            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></div><div class="lbl">Storm Ready<br>hit Storm Tier</div></div>
+            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><div class="lbl">Nutrition Coach Connect</div></div>
+            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6"/><path d="M4.93 10.93l1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="M17.66 12.34l1.41-1.41"/><path d="M22 22H2"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></div><div class="lbl">5:30am Regular</div></div>
+            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="lbl">Bring-a-Friend</div></div>
+            <div class="badge locked"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l4 4 5-7 5 7 4-4-2 11H5L3 8z"/><path d="M5 21h14"/></svg></div><div class="lbl">Gym MVP</div></div>
+            <div class="badge locked"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div><div class="lbl">100 Check-ins</div></div>
           </div>
         </div>
 
@@ -459,7 +460,7 @@
             </div>
             <div class="field">
               <label>Badge awarded</label>
-              <select><option>&#9889; Storm Ready</option><option>&#129381; Nutrition Coach Connect</option><option>&#128293; New badge&hellip;</option></select>
+              <select><option>Storm Ready</option><option>Nutrition Coach Connect</option><option>New badge&hellip;</option></select>
             </div>
           </div>
           <div class="btn-row">
