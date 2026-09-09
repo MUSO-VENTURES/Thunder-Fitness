@@ -767,4 +767,12 @@
     const el = document.getElementById('promote-confirm');
     el.hidden = false;
   }
+  // Deep-link support: ?view=trainer or ?view=dojo opens straight into that tab
+  // instead of always landing on Member View. This is what lets the TV signage's
+  // QR code (which points at member-app.html?view=dojo) drop a scanning phone
+  // directly into the Dojo section rather than the default member dashboard.
+  (function(){
+    const requested = new URLSearchParams(window.location.search).get('view');
+    if(requested === 'trainer' || requested === 'dojo'){ setView(requested); }
+  })();
 </script>
