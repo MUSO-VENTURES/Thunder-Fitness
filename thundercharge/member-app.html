@@ -212,15 +212,25 @@
   .belt-fill{ position:absolute; inset:0; background: linear-gradient(90deg, var(--belt-a), var(--belt-b)); }
   .belt-dividers{ position:absolute; inset:0; z-index:1; }
   .belt-dividers .div-line{
-    position:absolute; top:-30%; width:2px; height:160%;
-    background: rgba(255,255,255,0.8);
+    position:absolute; top:-30%; width:4px; height:160%;
+    background: rgba(255,255,255,0.85);
     transform: translateX(-50%) rotate(22deg);
   }
+  /* The lock overlay's leading edge is cut on the same diagonal as the dividers (rather
+     than a flat vertical edge) so the earned/locked boundary reads as part of the same
+     angled-stripe language instead of looking like a separate, unrelated straight mask.
+     The element is positioned via `left: calc(<earned%> - 9px)` (see inline style) so it
+     overlaps 9px into the earned side, then clip-path trims that overlap into a slant:
+     18px is carved off the top-left corner (mask starts later / more color shows at the
+     top of the bar) while the bottom-left corner keeps the full 9px overlap (mask starts
+     earlier / less color shows at the bottom) -- the same top-right-to-bottom-left "/"
+     lean as the divider lines. */
   .belt-lock{
     position:absolute; top:0; right:0; height:100%; z-index:2;
     background: rgba(8,9,10,0.4);
     backdrop-filter: grayscale(1) brightness(0.55);
     -webkit-backdrop-filter: grayscale(1) brightness(0.55);
+    clip-path: polygon(18px 0%, 100% 0%, 100% 100%, 0% 100%);
   }
   .belt-track-white{ --belt-a:#fbf8f0; --belt-b:#d9d0b8; }
   .belt-track-white .div-line{ background: rgba(0,0,0,0.35); }
@@ -668,7 +678,7 @@
               <span class="div-line" style="left:50%;"></span>
               <span class="div-line" style="left:75%;"></span>
             </div>
-            <div class="belt-lock" style="width:50%;"></div>
+            <div class="belt-lock" style="left:calc(50% - 9px);"></div>
           </div>
           <div class="profile-stats" style="margin-top:16px;">
             <div class="stat-box"><div class="num">142</div><div class="lbl">Sparring Rounds</div></div>
