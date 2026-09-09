@@ -210,17 +210,22 @@
      would be invisible against the dark card background). */
   .belt-track{ position:relative; height:16px; border-radius:5px; overflow:hidden; margin-top:10px; background: var(--bg-elev-2); border:1px solid var(--line-soft); }
   .belt-fill{ position:absolute; inset:0; background: linear-gradient(90deg, var(--belt-a), var(--belt-b)); }
-  .belt-dividers{ position:absolute; inset:0; z-index:1; }
+  .belt-lock{
+    position:absolute; top:0; right:0; height:100%; z-index:1;
+    background: rgba(8,9,10,0.4);
+    backdrop-filter: grayscale(1) brightness(0.55);
+    -webkit-backdrop-filter: grayscale(1) brightness(0.55);
+  }
+  /* Dividers paint above the lock overlay (not below it) so a divider that lands right on
+     the earned/locked boundary -- like the middle one whenever the wearer is exactly
+     halfway to their next stripe -- isn't half-desaturated by the lock's backdrop-filter.
+     Every divider now renders at the same full brightness and width no matter which side
+     of the boundary it's on. */
+  .belt-dividers{ position:absolute; inset:0; z-index:2; }
   .belt-dividers .div-line{
     position:absolute; top:0; width:4px; height:100%;
     background: rgba(255,255,255,0.85);
     transform: translateX(-50%);
-  }
-  .belt-lock{
-    position:absolute; top:0; right:0; height:100%; z-index:2;
-    background: rgba(8,9,10,0.4);
-    backdrop-filter: grayscale(1) brightness(0.55);
-    -webkit-backdrop-filter: grayscale(1) brightness(0.55);
   }
   .belt-track-white{ --belt-a:#fbf8f0; --belt-b:#d9d0b8; }
   .belt-track-white .div-line{ background: rgba(0,0,0,0.35); }
