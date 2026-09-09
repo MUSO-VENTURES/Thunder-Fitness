@@ -123,10 +123,10 @@
   }
   .profile-top{ display:flex; align-items:center; gap:16px; }
   .avatar{
-    width:64px; height:64px; border-radius:16px; flex:none;
+    width:92px; height:92px; border-radius:22px; flex:none;
     background: linear-gradient(135deg, var(--accent-2), var(--accent));
     display:flex; align-items:center; justify-content:center;
-    font-family: var(--font-ui); font-weight:800; font-size:22px; color:#0b0c0e;
+    font-family: var(--font-ui); font-weight:800; font-size:30px; color:#0b0c0e;
     overflow:hidden;
   }
   .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -214,11 +214,18 @@
   }
   .lb-row.me{ background: var(--accent-soft); border:1px solid rgba(227,19,27,0.35); }
   .lb-rank{ font-family: var(--font-ui); font-weight:700; color: var(--text-faint); font-size:14px; }
-  .lb-row:nth-child(1) .lb-rank, .lb-row.rank1 .lb-rank{ color:#ffd23d; }
+  .lb-row:nth-child(1) .lb-rank, .lb-row.rank1 .lb-rank{ color:var(--accent-2); }
   .lb-row.rank2 .lb-rank{ color:#cfd4d8; }
   .lb-row.rank3 .lb-rank{ color:#d99a5b; }
   .lb-avatar{ width:34px; height:34px; border-radius:9px; background: var(--bg-elev-2); border:1px solid var(--line-soft); display:flex;align-items:center;justify-content:center; font-family: var(--font-ui); font-size:11px; font-weight:700; color:var(--text-dim); overflow:hidden; }
   .lb-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+  /* Winning ranks (1-3): avatar ring color matches the rank color exactly, with a 3px red
+     inner stroke marking the top 3 as winners -- same design language as the TV signage
+     podium avatars. None of these rows have an <img> child, so a plain box-shadow (no
+     padding trick needed) renders the ring correctly. */
+  .lb-row.rank1 .lb-avatar{ border-color: var(--accent-2); box-shadow: 0 0 0 1px rgba(0,0,0,0.35), inset 0 0 0 3px var(--accent); }
+  .lb-row.rank2 .lb-avatar{ border-color: #cfd4d8; box-shadow: 0 0 0 1px rgba(0,0,0,0.35), inset 0 0 0 3px var(--accent); }
+  .lb-row.rank3 .lb-avatar{ border-color: #d99a5b; box-shadow: 0 0 0 1px rgba(0,0,0,0.35), inset 0 0 0 3px var(--accent); }
   .lb-name{ font-size:13.5px; font-weight:600; }
   .lb-streak{ font-size:11px; color: var(--text-faint); }
   .lb-pts{ font-family: var(--font-ui); font-weight:700; font-size:14px; text-align:right; }
