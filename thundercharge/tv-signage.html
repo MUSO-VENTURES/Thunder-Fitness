@@ -299,7 +299,17 @@
     .lb-name{ font-size: clamp(15px,2vh,24px); }
     .lb-streak{ font-size: clamp(11px,1.5vh,16px); }
     .lb-pts{ font-size: clamp(17px,2.4vh,30px); }
+    /* By Location: single tall column now, so scale off card height instead of width.
+       Keep floors low enough that the whole stack still fits a short card without
+       overflow:hidden clipping the rank label off the top. */
     .loc-grid{ grid-template-columns: 1fr; }
+    .loc-card{ padding-top: clamp(8px,1.6vh,24px); padding-bottom: clamp(8px,1.6vh,24px); }
+    .loc-content{ gap: clamp(4px,1vh,14px); }
+    .loc-rank{ font-size: clamp(11px,1.6vh,20px); letter-spacing:2.5px; }
+    .loc-name{ font-size: clamp(18px,4.2vh,48px); }
+    .loc-members{ font-size: clamp(9px,1.3vh,16px); }
+    .loc-pts{ font-size: clamp(23px,5.6vh,68px); margin-top:2px; }
+    .loc-bar-track{ width:60%; height: clamp(5px,0.8vh,11px); margin-top:5px; }
     .chal-grid{ grid-template-columns: 1fr; }
     .tv-header{ flex-wrap:wrap; }
 
