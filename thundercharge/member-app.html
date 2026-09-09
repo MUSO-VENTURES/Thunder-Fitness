@@ -198,34 +198,32 @@
 
   .belt-hero-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:4px; }
   .belt-hero-sub{ font-size:12px; color:var(--text-faint); }
-  /* Dynamic segmented belt-progress slider: one segment per stripe on the way to the next
-     belt. Locked (not-yet-earned) segments render dim/flat and disabled-looking; earned
-     segments fill with a two-stop 90deg gradient in the wearer's belt color -- the same
-     gradient shape already used by .xp-fill / .challenge-fill elsewhere in the app, just
-     recolored per belt -- plus a single diagonal tape-stripe accent cut across each filled
-     segment, echoing the diagonal rank stripe sewn onto a real belt. Belt color is set per
-     instance via the .belt-track-* modifier so the same markup drives every belt color in
-     the Dojo (black substitutes a gold duo, same precedent as .belt-black above, since true
-     black would be invisible against the dark card background). */
-  .belt-track{ display:flex; gap:5px; margin-top:10px; }
-  .belt-seg{ position:relative; flex:1; height:14px; border-radius:3px; overflow:hidden; background: var(--bg-elev-2); border:1px solid var(--line-soft); }
-  .belt-seg.locked{ opacity:0.42; }
-  .belt-seg.filled{ background: linear-gradient(90deg, var(--belt-a), var(--belt-b)); border-color: var(--belt-b); }
-  .belt-seg.filled::after{
-    content:"";
-    position:absolute; inset:0;
-    background: linear-gradient(135deg,
-      transparent 0%, transparent 40%,
-      rgba(255,255,255,0.6) 40%, rgba(255,255,255,0.6) 56%,
-      transparent 56%, transparent 100%);
+  /* Dynamic belt-progress slider: one continuous solid bar (not separate boxes) in the
+     wearer's belt color, using the same two-stop 90deg gradient shape as .xp-fill /
+     .challenge-fill elsewhere in the app, just recolored per belt. White diagonal tape
+     dividers mark each stripe boundary, echoing the diagonal rank stripes sewn onto a real
+     belt. The not-yet-earned portion of the bar is covered by a greyed-out, disabled-looking
+     overlay (desaturated + darkened) that sits on top of the fill and dividers alike, so the
+     locked stripes read as locked even though the bar itself never breaks into pieces. Belt
+     color is set per instance via the .belt-track-* modifier so the same markup drives every
+     belt color in the Dojo (black substitutes a gold duo, same precedent as .belt-black
+     above, since true black would be invisible against the dark card background). */
+  .belt-track{ position:relative; height:16px; border-radius:5px; overflow:hidden; margin-top:10px; background: var(--bg-elev-2); border:1px solid var(--line-soft); }
+  .belt-fill{ position:absolute; inset:0; background: linear-gradient(90deg, var(--belt-a), var(--belt-b)); }
+  .belt-dividers{ position:absolute; inset:0; z-index:1; }
+  .belt-dividers .div-line{
+    position:absolute; top:-30%; width:2px; height:160%;
+    background: rgba(255,255,255,0.8);
+    transform: translateX(-50%) rotate(22deg);
+  }
+  .belt-lock{
+    position:absolute; top:0; right:0; height:100%; z-index:2;
+    background: rgba(8,9,10,0.4);
+    backdrop-filter: grayscale(1) brightness(0.55);
+    -webkit-backdrop-filter: grayscale(1) brightness(0.55);
   }
   .belt-track-white{ --belt-a:#fbf8f0; --belt-b:#d9d0b8; }
-  .belt-track-white .belt-seg.filled::after{
-    background: linear-gradient(135deg,
-      transparent 0%, transparent 40%,
-      rgba(0,0,0,0.22) 40%, rgba(0,0,0,0.22) 56%,
-      transparent 56%, transparent 100%);
-  }
+  .belt-track-white .div-line{ background: rgba(0,0,0,0.35); }
   .belt-track-blue{ --belt-a:#5fa8d3; --belt-b:#2f6f96; }
   .belt-track-purple{ --belt-a:#a97ee0; --belt-b:#7a4fae; }
   .belt-track-brown{ --belt-a:#b07a45; --belt-b:#7c5227; }
@@ -664,10 +662,13 @@
             </div>
           </div>
           <div class="belt-track belt-track-blue" role="img" aria-label="2 of 4 stripes earned toward Purple Belt">
-            <div class="belt-seg filled"></div>
-            <div class="belt-seg filled"></div>
-            <div class="belt-seg locked"></div>
-            <div class="belt-seg locked"></div>
+            <div class="belt-fill"></div>
+            <div class="belt-dividers">
+              <span class="div-line" style="left:25%;"></span>
+              <span class="div-line" style="left:50%;"></span>
+              <span class="div-line" style="left:75%;"></span>
+            </div>
+            <div class="belt-lock" style="width:50%;"></div>
           </div>
           <div class="profile-stats" style="margin-top:16px;">
             <div class="stat-box"><div class="num">142</div><div class="lbl">Sparring Rounds</div></div>
