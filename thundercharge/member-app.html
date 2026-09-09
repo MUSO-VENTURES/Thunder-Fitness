@@ -200,37 +200,27 @@
   .belt-hero-sub{ font-size:12px; color:var(--text-faint); }
   /* Dynamic belt-progress slider: one continuous solid bar (not separate boxes) in the
      wearer's belt color, using the same two-stop 90deg gradient shape as .xp-fill /
-     .challenge-fill elsewhere in the app, just recolored per belt. White diagonal tape
-     dividers mark each stripe boundary, echoing the diagonal rank stripes sewn onto a real
-     belt. The not-yet-earned portion of the bar is covered by a greyed-out, disabled-looking
-     overlay (desaturated + darkened) that sits on top of the fill and dividers alike, so the
-     locked stripes read as locked even though the bar itself never breaks into pieces. Belt
-     color is set per instance via the .belt-track-* modifier so the same markup drives every
-     belt color in the Dojo (black substitutes a gold duo, same precedent as .belt-black
-     above, since true black would be invisible against the dark card background). */
+     .challenge-fill elsewhere in the app, just recolored per belt. Straight vertical
+     dividers mark each stripe boundary. The not-yet-earned portion of the bar is covered
+     by a greyed-out, disabled-looking overlay (desaturated + darkened) that sits on top
+     of the fill and dividers alike, cut with the same straight vertical edge as the
+     dividers so the whole bar stays visually aligned. Belt color is set per instance via
+     the .belt-track-* modifier so the same markup drives every belt color in the Dojo
+     (black substitutes a gold duo, same precedent as .belt-black above, since true black
+     would be invisible against the dark card background). */
   .belt-track{ position:relative; height:16px; border-radius:5px; overflow:hidden; margin-top:10px; background: var(--bg-elev-2); border:1px solid var(--line-soft); }
   .belt-fill{ position:absolute; inset:0; background: linear-gradient(90deg, var(--belt-a), var(--belt-b)); }
   .belt-dividers{ position:absolute; inset:0; z-index:1; }
   .belt-dividers .div-line{
-    position:absolute; top:-30%; width:4px; height:160%;
+    position:absolute; top:0; width:4px; height:100%;
     background: rgba(255,255,255,0.85);
-    transform: translateX(-50%) rotate(22deg);
+    transform: translateX(-50%);
   }
-  /* The lock overlay's leading edge is cut on the same diagonal as the dividers (rather
-     than a flat vertical edge) so the earned/locked boundary reads as part of the same
-     angled-stripe language instead of looking like a separate, unrelated straight mask.
-     The element is positioned via `left: calc(<earned%> - 9px)` (see inline style) so it
-     overlaps 9px into the earned side, then clip-path trims that overlap into a slant:
-     18px is carved off the top-left corner (mask starts later / more color shows at the
-     top of the bar) while the bottom-left corner keeps the full 9px overlap (mask starts
-     earlier / less color shows at the bottom) -- the same top-right-to-bottom-left "/"
-     lean as the divider lines. */
   .belt-lock{
     position:absolute; top:0; right:0; height:100%; z-index:2;
     background: rgba(8,9,10,0.4);
     backdrop-filter: grayscale(1) brightness(0.55);
     -webkit-backdrop-filter: grayscale(1) brightness(0.55);
-    clip-path: polygon(18px 0%, 100% 0%, 100% 100%, 0% 100%);
   }
   .belt-track-white{ --belt-a:#fbf8f0; --belt-b:#d9d0b8; }
   .belt-track-white .div-line{ background: rgba(0,0,0,0.35); }
@@ -678,7 +668,7 @@
               <span class="div-line" style="left:50%;"></span>
               <span class="div-line" style="left:75%;"></span>
             </div>
-            <div class="belt-lock" style="left:calc(50% - 9px);"></div>
+            <div class="belt-lock" style="width:50%;"></div>
           </div>
           <div class="profile-stats" style="margin-top:16px;">
             <div class="stat-box"><div class="num">142</div><div class="lbl">Sparring Rounds</div></div>
