@@ -253,14 +253,21 @@
      render at full opacity, belts still ahead sit at 50% opacity -- "locked" reads
      as fact, not as a warning, so no border/lock icon is needed on top of it. */
   .belt-ladder{ margin-top:14px; }
-  .belt-ladder-bar{ display:flex; gap:3px; height:9px; }
-  .belt-ladder-seg{ flex:1; border-radius:4px; opacity:0.5; }
-  .belt-ladder-seg.earned{ opacity:1; }
-  .belt-ladder-seg.white{ background:#f2ede1; }
-  .belt-ladder-seg.blue{ background:#5fa8d3; }
-  .belt-ladder-seg.purple{ background:#a97ee0; }
-  .belt-ladder-seg.brown{ background:#b07a45; }
-  .belt-ladder-seg.black{ background:#f2b006; }
+  /* A row of discs, one per belt, rather than a continuous bar -- a solid bar with
+     rounded ends read as connected "pill" segments, which for the brown/black belts
+     in particular was landing as an unfortunate visual pun. Discrete circles avoid
+     that entirely while keeping the same earned/locked opacity language as the rest
+     of the app. Each disc sits centered in its own flex:1 column so it lines up
+     exactly with the label underneath, same column grid as .belt-ladder-labels. */
+  .belt-ladder-bar{ display:flex; gap:3px; }
+  .belt-ladder-seg{ flex:1; display:flex; justify-content:center; }
+  .belt-ladder-dot{ width:16px; height:16px; border-radius:50%; flex:none; opacity:0.4; box-shadow:0 0 0 1px rgba(0,0,0,0.4); }
+  .belt-ladder-seg.earned .belt-ladder-dot{ opacity:1; }
+  .belt-ladder-dot.white{ background:#f2ede1; }
+  .belt-ladder-dot.blue{ background:#5fa8d3; }
+  .belt-ladder-dot.purple{ background:#a97ee0; }
+  .belt-ladder-dot.brown{ background:#b07a45; }
+  .belt-ladder-dot.black{ background:#f2b006; }
   .belt-ladder-labels{ display:flex; gap:3px; margin-top:6px; }
   .belt-ladder-labels span{
     flex:1; text-align:center; font-size:9px; font-weight:600; text-transform:uppercase;
@@ -518,11 +525,11 @@
               </div>
               <div class="belt-ladder" role="img" aria-label="Currently Blue Belt; White and Blue earned, Purple, Brown and Black still ahead">
                 <div class="belt-ladder-bar">
-                  <div class="belt-ladder-seg white earned"></div>
-                  <div class="belt-ladder-seg blue earned"></div>
-                  <div class="belt-ladder-seg purple"></div>
-                  <div class="belt-ladder-seg brown"></div>
-                  <div class="belt-ladder-seg black"></div>
+                  <div class="belt-ladder-seg earned"><span class="belt-ladder-dot white"></span></div>
+                  <div class="belt-ladder-seg earned"><span class="belt-ladder-dot blue"></span></div>
+                  <div class="belt-ladder-seg"><span class="belt-ladder-dot purple"></span></div>
+                  <div class="belt-ladder-seg"><span class="belt-ladder-dot brown"></span></div>
+                  <div class="belt-ladder-seg"><span class="belt-ladder-dot black"></span></div>
                 </div>
                 <div class="belt-ladder-labels">
                   <span>White</span><span class="current">Blue</span><span>Purple</span><span>Brown</span><span>Black</span>
@@ -838,11 +845,11 @@
           </div>
           <div class="belt-ladder" role="img" aria-label="Currently Blue Belt; White and Blue earned, Purple, Brown and Black still ahead">
             <div class="belt-ladder-bar">
-              <div class="belt-ladder-seg white earned"></div>
-              <div class="belt-ladder-seg blue earned"></div>
-              <div class="belt-ladder-seg purple"></div>
-              <div class="belt-ladder-seg brown"></div>
-              <div class="belt-ladder-seg black"></div>
+              <div class="belt-ladder-seg earned"><span class="belt-ladder-dot white"></span></div>
+              <div class="belt-ladder-seg earned"><span class="belt-ladder-dot blue"></span></div>
+              <div class="belt-ladder-seg"><span class="belt-ladder-dot purple"></span></div>
+              <div class="belt-ladder-seg"><span class="belt-ladder-dot brown"></span></div>
+              <div class="belt-ladder-seg"><span class="belt-ladder-dot black"></span></div>
             </div>
             <div class="belt-ladder-labels">
               <span>White</span><span class="current">Blue</span><span>Purple</span><span>Brown</span><span>Black</span>
