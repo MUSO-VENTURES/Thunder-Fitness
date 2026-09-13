@@ -162,25 +162,36 @@
   .ledger-sub{ font-size:11.5px; color:var(--text-faint); }
   .ledger-pts{ font-family: var(--font-ui); font-weight:700; font-size:14px; color: var(--good); flex:none; }
 
-  /* ---------- Badges ---------- */
-  .badge-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:12px; }
-  @media (max-width:520px){ .badge-grid{ grid-template-columns: repeat(3,1fr);} }
-  .badge{
-    aspect-ratio: 1; border-radius:14px; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; gap:6px;
-    border:1px solid var(--line-soft); background: var(--bg-elev-2);
-    text-align:center; padding:8px; position:relative;
-    transition: transform .15s ease, border-color .15s ease;
+  /* ---------- Trophy case ---------- */
+  /* Minimal medallion badges, not bordered square tiles -- a round "medal" per
+     achievement (earned ones glow gold, locked ones sit flat and dim) with a plain
+     caption underneath. No boxed card chrome; presence of the gold glow IS the
+     earned signal, same philosophy as the belt-dot elsewhere. A tiny lock badge
+     (not an emoji) marks the locked ones without adding visual noise. */
+  .trophy-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:18px 8px; }
+  @media (max-width:520px){ .trophy-grid{ grid-template-columns: repeat(3,1fr);} }
+  .trophy{ display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
+  .trophy-medal{
+    width:52px; height:52px; border-radius:50%; flex:none; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    background: radial-gradient(circle at 35% 28%, rgba(242,176,6,0.30), rgba(242,176,6,0.05) 72%);
+    border: 1.5px solid rgba(242,176,6,0.5);
+    box-shadow: 0 0 16px rgba(242,176,6,0.18);
   }
-  .badge.earned{ border-color: rgba(242,176,6,0.4); background: linear-gradient(160deg, rgba(242,176,6,0.10), var(--bg-elev-2)); }
-  .badge:hover{ transform: translateY(-2px); }
-  .badge .ico{ width:30px; height:30px; color: var(--accent-2); }
-  .badge .ico svg{ width:100%; height:100%; }
-  .badge .lbl{ font-size:9.5px; color: var(--text-dim); font-weight:600; line-height:1.2; }
-  .badge.locked .ico, .badge.locked .lbl{ opacity:0.32; }
-  .badge.locked::after{
-    content:"\1F512"; position:absolute; top:6px; right:7px; font-size:9px; opacity:0.5;
+  .trophy-medal .ico{ width:23px; height:23px; color: var(--accent-2); }
+  .trophy-medal .ico svg{ width:100%; height:100%; display:block; }
+  .trophy.locked .trophy-medal{
+    background: var(--bg-elev-2); border-color: var(--line-soft); box-shadow:none;
   }
+  .trophy.locked .trophy-medal .ico{ color: var(--text-faint); opacity:0.55; }
+  .trophy-medal .lock{
+    position:absolute; bottom:-3px; right:-3px; width:16px; height:16px; border-radius:50%;
+    background: var(--bg-elev); border:1px solid var(--line-soft);
+    display:flex; align-items:center; justify-content:center; color: var(--text-faint);
+  }
+  .trophy-medal .lock svg{ width:9px; height:9px; }
+  .trophy-lbl{ font-size:10px; color:var(--text-dim); font-weight:600; line-height:1.25; }
+  .trophy.locked .trophy-lbl{ color:var(--text-faint); }
 
   /* ---------- Belt system ---------- */
   .belt-chip{
@@ -196,7 +207,7 @@
   .belt-brown{ color:#fbeee0; background:rgba(176,122,69,0.26); border-color:#b07a45; }
   .belt-black{ color:#0b0c0e; background:#f2b006; border-color:#f2b006; }
 
-  .belt-hero-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:4px; }
+  .belt-hero-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:10px; }
   .belt-hero-sub{ font-size:12px; color:var(--text-faint); }
   /* Dynamic belt-progress slider: one continuous solid bar (not separate boxes) in the
      wearer's belt color, using the same two-stop 90deg gradient shape as .xp-fill /
@@ -233,6 +244,29 @@
   .belt-track-purple{ --belt-a:#a97ee0; --belt-b:#7a4fae; }
   .belt-track-brown{ --belt-a:#b07a45; --belt-b:#7c5227; }
   .belt-track-black{ --belt-a:#f2b006; --belt-b:#b8790a; }
+
+  /* ---------- Belt ladder (overall rank progression) ---------- */
+  /* Distinct from .belt-track above: that bar shows stripe progress WITHIN the
+     current belt, this one shows WHICH belt the member is on across the whole
+     White -> Blue -> Purple -> Brown -> Black ladder. Every belt gets its own
+     permanent color segment; belts already reached (including the current one)
+     render at full opacity, belts still ahead sit at 50% opacity -- "locked" reads
+     as fact, not as a warning, so no border/lock icon is needed on top of it. */
+  .belt-ladder{ margin-top:14px; }
+  .belt-ladder-bar{ display:flex; gap:3px; height:9px; }
+  .belt-ladder-seg{ flex:1; border-radius:4px; opacity:0.5; }
+  .belt-ladder-seg.earned{ opacity:1; }
+  .belt-ladder-seg.white{ background:#f2ede1; }
+  .belt-ladder-seg.blue{ background:#5fa8d3; }
+  .belt-ladder-seg.purple{ background:#a97ee0; }
+  .belt-ladder-seg.brown{ background:#b07a45; }
+  .belt-ladder-seg.black{ background:#f2b006; }
+  .belt-ladder-labels{ display:flex; gap:3px; margin-top:6px; }
+  .belt-ladder-labels span{
+    flex:1; text-align:center; font-size:9px; font-weight:600; text-transform:uppercase;
+    letter-spacing:0.3px; color: var(--text-faint);
+  }
+  .belt-ladder-labels span.current{ color: var(--text); font-weight:800; }
 
   /* ---------- Level + belt-color indicator ---------- */
   /* Reused everywhere a member's level appears (leaderboard rows, the trainer's
@@ -328,25 +362,23 @@
   }
   .lb-row.me{ background: var(--accent-soft); border:1px solid rgba(227,19,27,0.35); }
   .lb-rank{ font-family: var(--font-ui); font-weight:700; color: var(--text-faint); font-size:14px; }
-  .lb-row:nth-child(1) .lb-rank, .lb-row.rank1 .lb-rank{ color:var(--accent-2); }
+  .lb-row.rank1 .lb-rank{ color:var(--accent-2); }
   .lb-row.rank2 .lb-rank{ color:#cfd4d8; }
   .lb-row.rank3 .lb-rank{ color:#d99a5b; }
   .lb-avatar{ width:42px; height:42px; border-radius:11px; background: var(--bg-elev-2); border:1px solid var(--line-soft); display:flex;align-items:center;justify-content:center; font-family: var(--font-ui); font-size:13px; font-weight:700; color:var(--text-dim); overflow:hidden; }
   .lb-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
-  /* Winning ranks (1-3): the rank-color ring is now the bold, primary signal (3px
-     border) with a slim 1.5px red inner stroke as the secondary "winner" accent --
-     inverted from the ring/stroke weights we started with so the placement color reads
-     first and the red no longer overpowers it. Text-only avatars (no <img>, e.g. By
-     Location's LIV/NWK/SJ badges) render the stroke fine as a plain inset box-shadow;
-     avatars with a real photo need the padding+background trick instead, since the img
-     paints over an inset box-shadow. :has(img) scopes the photo treatment so it never
-     touches the text-only badges. */
-  .lb-row.rank1 .lb-avatar{ border: 3px solid var(--accent-2); box-shadow: 0 0 0 1px rgba(0,0,0,0.35), inset 0 0 0 1.5px var(--accent); }
-  .lb-row.rank2 .lb-avatar{ border: 3px solid #cfd4d8; box-shadow: 0 0 0 1px rgba(0,0,0,0.35), inset 0 0 0 1.5px var(--accent); }
-  .lb-row.rank3 .lb-avatar{ border: 3px solid #d99a5b; box-shadow: 0 0 0 1px rgba(0,0,0,0.35), inset 0 0 0 1.5px var(--accent); }
-  .lb-row.rank1 .lb-avatar:has(img){ padding:1.5px; background: var(--accent); box-shadow: 0 0 0 1px rgba(0,0,0,0.35); }
-  .lb-row.rank2 .lb-avatar:has(img){ padding:1.5px; background: var(--accent); box-shadow: 0 0 0 1px rgba(0,0,0,0.35); }
-  .lb-row.rank3 .lb-avatar:has(img){ padding:1.5px; background: var(--accent); box-shadow: 0 0 0 1px rgba(0,0,0,0.35); }
+  /* Top-3 rows now use the exact gold/silver/bronze recipe as the TV signage's podium
+     cards -- same three colors, same avatar ring + glow amounts (scaled down for this
+     list's smaller avatars) -- plus a matching tinted card background/border on the row
+     itself, so a top-3 member reads identically wherever their rank and photo show up:
+     member app, Dojo leaderboard, and TV. No more mixed-in red inner stroke; the
+     rank color alone carries the "podium" signal, same as the TV build. */
+  .lb-row.rank1{ background: linear-gradient(90deg, rgba(242,176,6,0.12), rgba(242,176,6,0.02) 70%); border:1px solid rgba(242,176,6,0.4); }
+  .lb-row.rank2{ background: linear-gradient(90deg, rgba(207,212,216,0.10), rgba(207,212,216,0.02) 70%); border:1px solid rgba(207,212,216,0.35); }
+  .lb-row.rank3{ background: linear-gradient(90deg, rgba(217,154,91,0.10), rgba(217,154,91,0.02) 70%); border:1px solid rgba(217,154,91,0.35); }
+  .lb-row.rank1 .lb-avatar{ border: 3px solid var(--accent-2); box-shadow: 0 0 0 1px rgba(0,0,0,0.4), 0 0 14px rgba(242,176,6,0.5); }
+  .lb-row.rank2 .lb-avatar{ border: 3px solid #cfd4d8; box-shadow: 0 0 0 1px rgba(0,0,0,0.4), 0 0 12px rgba(207,212,216,0.45); }
+  .lb-row.rank3 .lb-avatar{ border: 3px solid #d99a5b; box-shadow: 0 0 0 1px rgba(0,0,0,0.4), 0 0 12px rgba(217,154,91,0.45); }
   .lb-name{ font-size:13.5px; font-weight:600; }
   .lb-streak{ font-size:11px; color: var(--text-faint); }
   .lb-pts{ font-family: var(--font-ui); font-weight:700; font-size:14px; text-align:right; }
@@ -484,6 +516,18 @@
                 <span class="belt-chip belt-blue"><span class="belt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h5"/><path d="M17 12h5"/><rect x="7" y="7" width="10" height="10" rx="1.5"/><circle cx="12" cy="12" r="1.6"/></svg></span>Blue Belt</span>
                 <span class="belt-hero-sub">2 of 4 stripes to Purple</span>
               </div>
+              <div class="belt-ladder" role="img" aria-label="Currently Blue Belt; White and Blue earned, Purple, Brown and Black still ahead">
+                <div class="belt-ladder-bar">
+                  <div class="belt-ladder-seg white earned"></div>
+                  <div class="belt-ladder-seg blue earned"></div>
+                  <div class="belt-ladder-seg purple"></div>
+                  <div class="belt-ladder-seg brown"></div>
+                  <div class="belt-ladder-seg black"></div>
+                </div>
+                <div class="belt-ladder-labels">
+                  <span>White</span><span class="current">Blue</span><span>Purple</span><span>Brown</span><span>Black</span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="profile-stats">
@@ -532,16 +576,16 @@
         </div>
 
         <div class="card">
-          <div class="card-head"><h2>Badges</h2><span class="meta">6 of 16 earned</span></div>
-          <div class="badge-grid">
-            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.5-3-5.5-.5 2-1.5 3-2 3 1-3-1-5.5-3-7-1 2.5.5 4-1 6-1 1.5-2 2.5-2 3.5a7 7 0 0 0 4 7z"/></svg></div><div class="lbl">Iron Will<br>30-day streak</div></div>
-            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 5H5a2 2 0 0 0 0 4h2"/><path d="M17 5h2a2 2 0 0 1 0 4h-2"/></svg></div><div class="lbl">PR Crusher</div></div>
-            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></div><div class="lbl">Storm Ready<br>hit Storm Tier</div></div>
-            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><div class="lbl">Nutrition Coach Connect</div></div>
-            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6"/><path d="M4.93 10.93l1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="M17.66 12.34l1.41-1.41"/><path d="M22 22H2"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></div><div class="lbl">5:30am Regular</div></div>
-            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="lbl">Bring-a-Friend</div></div>
-            <div class="badge locked"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l4 4 5-7 5 7 4-4-2 11H5L3 8z"/><path d="M5 21h14"/></svg></div><div class="lbl">Gym MVP</div></div>
-            <div class="badge locked"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div><div class="lbl">100 Check-ins</div></div>
+          <div class="card-head"><h2>Trophy Case</h2><span class="meta">6 of 16 earned</span></div>
+          <div class="trophy-grid">
+            <div class="trophy earned"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.5-3-5.5-.5 2-1.5 3-2 3 1-3-1-5.5-3-7-1 2.5.5 4-1 6-1 1.5-2 2.5-2 3.5a7 7 0 0 0 4 7z"/></svg></div></div><div class="trophy-lbl">Iron Will<br>30-day streak</div></div>
+            <div class="trophy earned"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 5H5a2 2 0 0 0 0 4h2"/><path d="M17 5h2a2 2 0 0 1 0 4h-2"/></svg></div></div><div class="trophy-lbl">PR Crusher</div></div>
+            <div class="trophy earned"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></div></div><div class="trophy-lbl">Storm Ready<br>hit Storm Tier</div></div>
+            <div class="trophy earned"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div></div><div class="trophy-lbl">Nutrition Coach Connect</div></div>
+            <div class="trophy earned"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6"/><path d="M4.93 10.93l1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="M17.66 12.34l1.41-1.41"/><path d="M22 22H2"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></div></div><div class="trophy-lbl">5:30am Regular</div></div>
+            <div class="trophy earned"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div></div><div class="trophy-lbl">Bring-a-Friend</div></div>
+            <div class="trophy locked"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l4 4 5-7 5 7 4-4-2 11H5L3 8z"/><path d="M5 21h14"/></svg></div><div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div></div><div class="trophy-lbl">Gym MVP</div></div>
+            <div class="trophy locked"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div><div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div></div><div class="trophy-lbl">100 Check-ins</div></div>
           </div>
         </div>
 
@@ -792,6 +836,18 @@
             </div>
             <div class="belt-lock" style="width:50%;"></div>
           </div>
+          <div class="belt-ladder" role="img" aria-label="Currently Blue Belt; White and Blue earned, Purple, Brown and Black still ahead">
+            <div class="belt-ladder-bar">
+              <div class="belt-ladder-seg white earned"></div>
+              <div class="belt-ladder-seg blue earned"></div>
+              <div class="belt-ladder-seg purple"></div>
+              <div class="belt-ladder-seg brown"></div>
+              <div class="belt-ladder-seg black"></div>
+            </div>
+            <div class="belt-ladder-labels">
+              <span>White</span><span class="current">Blue</span><span>Purple</span><span>Brown</span><span>Black</span>
+            </div>
+          </div>
           <div class="profile-stats" style="margin-top:16px;">
             <div class="stat-box"><div class="num">142</div><div class="lbl">Sparring Rounds</div></div>
             <div class="stat-box"><div class="num">4-1</div><div class="lbl">Fight Record</div></div>
@@ -828,12 +884,12 @@
       <div class="col">
 
         <div class="card">
-          <div class="card-head"><h2>Elite Badges</h2><span class="meta">2 of 4 earned</span></div>
-          <div class="badge-grid">
-            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg></div><div class="lbl">Podium Finish</div></div>
-            <div class="badge earned"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 12.5V7a2 2 0 0 1 4 0v3.5"/><path d="M11 10V6a2 2 0 0 1 4 0v4.5"/><path d="M15 11V8.2a2 2 0 0 1 4 0V15a6.5 6.5 0 0 1-6.5 6.5h-2A5.5 5.5 0 0 1 5 16v-3a2 2 0 0 1 4 0"/></svg></div><div class="lbl">Fight Night<br>Veteran</div></div>
-            <div class="badge locked"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-4z"/></svg></div><div class="lbl">Regional<br>Qualifier</div></div>
-            <div class="badge locked"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.5-3-5.5-.5 2-1.5 3-2 3 1-3-1-5.5-3-7-1 2.5.5 4-1 6-1 1.5-2 2.5-2 3.5a7 7 0 0 0 4 7z"/></svg></div><div class="lbl">Undefeated<br>Streak</div></div>
+          <div class="card-head"><h2>Trophy Case</h2><span class="meta">2 of 4 earned</span></div>
+          <div class="trophy-grid">
+            <div class="trophy earned"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg></div></div><div class="trophy-lbl">Podium Finish</div></div>
+            <div class="trophy earned"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 12.5V7a2 2 0 0 1 4 0v3.5"/><path d="M11 10V6a2 2 0 0 1 4 0v4.5"/><path d="M15 11V8.2a2 2 0 0 1 4 0V15a6.5 6.5 0 0 1-6.5 6.5h-2A5.5 5.5 0 0 1 5 16v-3a2 2 0 0 1 4 0"/></svg></div></div><div class="trophy-lbl">Fight Night<br>Veteran</div></div>
+            <div class="trophy locked"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-4z"/></svg></div><div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div></div><div class="trophy-lbl">Regional<br>Qualifier</div></div>
+            <div class="trophy locked"><div class="trophy-medal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.5-3-5.5-.5 2-1.5 3-2 3 1-3-1-5.5-3-7-1 2.5.5 4-1 6-1 1.5-2 2.5-2 3.5a7 7 0 0 0 4 7z"/></svg></div><div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div></div><div class="trophy-lbl">Undefeated<br>Streak</div></div>
           </div>
         </div>
 
