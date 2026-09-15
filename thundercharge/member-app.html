@@ -128,7 +128,7 @@
     background: linear-gradient(135deg, var(--accent-2), var(--accent));
     display:flex; align-items:center; justify-content:center;
     font-family: var(--font-ui); font-weight:800; font-size:30px; color:#0b0c0e;
-    overflow:hidden; border: 3px solid var(--line-soft);
+    overflow:hidden; border: 1px solid var(--line-soft);
   }
   .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
   .profile-name-row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
@@ -385,7 +385,7 @@
   .lb-row.rank1 .lb-rank{ color:var(--accent-2); }
   .lb-row.rank2 .lb-rank{ color:#cfd4d8; }
   .lb-row.rank3 .lb-rank{ color:#d99a5b; }
-  .lb-avatar{ width:42px; height:42px; border-radius:11px; background: var(--bg-elev-2); border:3px solid var(--line-soft); display:flex;align-items:center;justify-content:center; font-family: var(--font-ui); font-size:13px; font-weight:700; color:var(--text-dim); overflow:hidden; }
+  .lb-avatar{ width:42px; height:42px; border-radius:11px; background: var(--bg-elev-2); border:1px solid var(--line-soft); display:flex;align-items:center;justify-content:center; font-family: var(--font-ui); font-size:13px; font-weight:700; color:var(--text-dim); overflow:hidden; }
   .lb-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
   /* Top-3 rows now use the exact gold/silver/bronze recipe as the TV signage's podium
      cards -- same three colors, same outer-ring + glow amounts (scaled down for this
@@ -403,9 +403,9 @@
      read as separate, then the actual gold/silver/bronze ring, then its glow. Location
      always wins the inner position since it's the "who/where" signal; rank is the
      "how they're doing" signal layered on top. */
-  .lb-row.rank1 .lb-avatar{ box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 5px var(--accent-2), 0 0 14px rgba(242,176,6,0.55); }
-  .lb-row.rank2 .lb-avatar{ box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 5px #cfd4d8, 0 0 12px rgba(207,212,216,0.5); }
-  .lb-row.rank3 .lb-avatar{ box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 5px #d99a5b, 0 0 12px rgba(217,154,91,0.5); }
+  .lb-row.rank1 .lb-avatar{ box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 4px var(--accent-2), 0 0 14px rgba(242,176,6,0.55); }
+  .lb-row.rank2 .lb-avatar{ box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 4px #cfd4d8, 0 0 12px rgba(207,212,216,0.5); }
+  .lb-row.rank3 .lb-avatar{ box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 4px #d99a5b, 0 0 12px rgba(217,154,91,0.5); }
   .lb-name{ font-size:13.5px; font-weight:600; }
   .lb-streak{ font-size:11px; color: var(--text-faint); }
   .lb-pts{ font-family: var(--font-ui); font-weight:700; font-size:14px; text-align:right; }
